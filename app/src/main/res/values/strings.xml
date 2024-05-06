@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SlimLoader</string>
+    <string name="choose_apk">Choose APK</string>
 </resources>
