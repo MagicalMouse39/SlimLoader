@@ -78,19 +78,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions() {
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-
-        if (!prefs.getBoolean("asked_file_access", false) || !Environment.isExternalStorageManager()) {
-            showDialog("File access", "Please allow this app to access the device's files", () -> {
-                openSettings(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                prefs.edit().putBoolean("asked_file_access", true).apply();
-            });
+        if (!Environment.isExternalStorageManager()) {
+            showDialog("File access",
+                    "Please allow this app to access the device's files",
+                    () -> openSettings(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION));
         }
-        if (!prefs.getBoolean("asked_install_access", false) || !getPackageManager().canRequestPackageInstalls()) {
-            showDialog("Unknown app sources", "Please allow this app to install other applications", () -> {
-                openSettings(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                prefs.edit().putBoolean("asked_install_access", true).apply();
-            });
+        if (!getPackageManager().canRequestPackageInstalls()) {
+            showDialog("Unknown app sources",
+                    "Please allow this app to install other applications",
+                    () -> openSettings(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES));
         }
     }
 
